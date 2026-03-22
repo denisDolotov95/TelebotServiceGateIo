@@ -1,0 +1,6 @@
+fastapi==0.128.0
+fastapi_limiter==0.1.6
+gate-api==7.2.26
+pytest==8.1.1
+redis==7.1.0
+uvicorn==0.40.0

@@ -1,0 +1,36 @@
+{
+    "title": "Gate.io REST API",
+    "description": "Взаимодействие с gate.io <a href='https://www.gate.io/docs/developers/apiv4/'>API</a>",
+    "version": "0.0.1",
+    "terms_of_service": "",
+    "contact": {
+        "name": "Denis D.",
+        "email": "gambit0095.mail@gmail.com"
+    },
+    "openapi_tags": [
+        {
+            "name": "Spot",
+            "description": "Operations with spot",
+            "externalDocs": {
+                "description": "Items external docs",
+                "url": "https://fastapi.tiangolo.com/"
+            }
+        },
+        {
+            "name": "Admin",
+            "description": "Admin info",
+            "externalDocs": {
+                "description": "Items external docs",
+                "url": "https://fastapi.tiangolo.com/"
+            }
+        },
+        {
+            "name": "Wallet",
+            "description": "Operations with wallet",
+            "externalDocs": {
+                "description": "Items external docs",
+                "url": "https://fastapi.tiangolo.com/"
+            }
+        }
+    ]
+}

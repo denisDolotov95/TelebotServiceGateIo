@@ -1,0 +1,11 @@
+APScheduler==3.10.4
+aiohttp==3.9.3
+gate_api==4.60.2
+pydantic==1.9.1
+pyTelegramBotAPI==4.17.0
+pytest==8.1.1
+SQLAlchemy==2.0.29
+asyncpg==0.29.0
+prettytable==3.10.0
+pdfkit==1.0.0
+pandas==2.2.2

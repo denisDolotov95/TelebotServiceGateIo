@@ -1,0 +1,48 @@
+services:
+  gate_io_rest_api:
+    container_name: ${CONTAINER_NAME:-None}
+    image: ${CONTAINER_NAME:-None}:${BRANCH}-${TAG:-None}-${COMMIT_SHORT_SHA:-None}
+    build: .
+    volumes:
+      - "gate_io_log:/usr/src/${CONTAINER_NAME}/log:rw"
+    restart: always
+    hostname: ${CONTAINER_NAME:-None}
+    environment:
+      # - VERSION=${BRANCH}-${TAG}-${COMMIT_SHORT_SHA}
+      - PORT=${FASTAPI_PORT}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_URL=${REDIS_URL}
+      - GATE_HOST=${GATE_HOST}
+      - GATE_KEY=${GATE_KEY}
+      - GATE_SECRET=${GATE_SECRET}
+    ports:
+      - ${FASTAPI_PORT}:${FASTAPI_PORT}
+    networks:
+      gate_api:
+        ipv4_address: ${FASTAPI_HOST}
+
+  redis:
+    container_name: ${CONTAINER_NAME:-None}_redis
+    image: redis:latest
+    restart: always
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    volumes:
+      - /path/to/local/dаta:/root/redis
+      - /path/to/local/redis.conf:/usr/local/etc/redis/redis.conf
+    command: ["redis-server", "--appendonly", "yes"] # Включение AOF
+    environment:
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_DATABASES=16
+    networks:
+      gate_api:
+        ipv4_address: ${REDIS_HOST}
+
+volumes:
+  gate_io_log:
+    external: true
+
+networks:
+  gate_io:
+    external: true

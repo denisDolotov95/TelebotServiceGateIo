@@ -1,0 +1,39 @@
+services:
+  pump_stock:
+    container_name: ${CONTAINER_ID:-0}_${CONTAINER_NAME:-None}
+    image: ${CONTAINER_NAME:-None}:${BRANCH}-${TAG}-${COMMIT_SHORT_SHA}
+    build: .
+    volumes:
+      # - "gate_io_data:/usr/src/app/data:rw"
+      # - "./app/data/img:/usr/src/app/data/img:rw"
+      - "gate_io_log:/usr/src/app/log:rw"
+    restart: always
+    hostname: ${CONTAINER_NAME:-None}
+    environment:
+      - VERSION=${BRANCH}-${TAG}-${COMMIT_SHORT_SHA}
+      - CONTAINER_ID=${CONTAINER_ID:-0}
+    env_file:
+      - path: ./env/variable.env
+        required: True
+      - path: ./env/${BRANCH}/gate.env
+        required: True
+      - path: ./env/${BRANCH}/telegram.env
+        required: True
+      - path: ./env/${BRANCH}/database.env
+        required: True
+    networks:
+      - production
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
+
+volumes:
+  # gate_io_data:
+  #   external: True
+  gate_io_log:
+    external: True
+
+networks:
+  gate_io:
+    external: True

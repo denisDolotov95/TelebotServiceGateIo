@@ -1,0 +1,40 @@
+stages:
+  - unit-test
+  - rebuild-container
+
+getVersion:
+  stage: .pre
+  script:
+    - echo "TAG=$CI_COMMIT_TAG" > tag.env
+    - echo "COMMIT_SHORT_SHA=$CI_COMMIT_SHORT_SHA" > short_sha.env
+  artifacts:
+    expire_in: never
+    paths:
+      - ./
+    reports:
+      dotenv:
+        - tag.env
+        - short_sha.env
+
+unitTestJob:
+  stage: unit-test
+  only:
+    - tags
+  except:
+    - branches
+  script:
+    - echo "Start unit-test..."
+    - /home/gitlab-runner/venv3.12/bin/pytest -x
+    
+rebuildContainerJob:
+  stage: rebuild-container
+  needs:
+    - job: unitTestJob
+  only:
+    - tags
+  except:
+    - branches
+  script:
+    - echo "Rebuild container..."
+    - echo -e "\n" >> .env && cat tag.env >> .env && cat short_sha.env >> .env
+    - docker compose down --rmi local && docker compose up -d
