@@ -12,7 +12,10 @@ from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup, _IncomingMarkup
 from prettytable import PrettyTable
 
-from config import GATE_DOMAIN, BROWSER_DOMAIN
+try:
+    from app.config import GATE_DOMAIN, BROWSER_DOMAIN
+except ModuleNotFoundError:
+    from config import GATE_DOMAIN, BROWSER_DOMAIN
 
 
 async def gate_req(

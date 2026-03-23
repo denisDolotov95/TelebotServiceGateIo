@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
 
-from ..util import *
-from ..config import INFO_COMMANDS
+from app.util import formation_info_by_commands, formation_total_balance_table
 
 
 class TestUtil:
 
     def test_formation_info_by_commands(self):
+        info_commands = {
+            "help": {"info": "список команд"},
+            "logs": {
+                "info": "логи",
+                "commands": {"today": {"info": "логи за сегодня"}},
+            },
+        }
 
-        returned = formation_info_by_commands(INFO_COMMANDS)
+        returned = formation_info_by_commands(info_commands)
         assert isinstance(returned, str)
+        assert "/help - список команд" in returned
+        assert "/today - логи за сегодня" in returned
 
     def test_formation_total_balance_table(self):
 

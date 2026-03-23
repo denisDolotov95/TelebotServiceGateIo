@@ -13,8 +13,8 @@ __all__ = [
 
 GATE_CONFIGURATION = {
     "host": os.environ.get("GATE_HOST", "https://api.gateio.ws/api/v4"),
-    "key": os.environ.get("GATE_KEY", "2c4ffa1c8b3f6a935b978e8a47a67e5f"),
-    "secret": os.environ.get("GATE_SECRET", "ffa60f500082d0151e7df34fec035211033ea2c3dc423786b75f07603b85e9ab"),
+    "key": os.environ.get("GATE_KEY", "2c4ffa1c8b3f6a935b"),
+    "secret": os.environ.get("GATE_SECRET", "ffa60f500082d0151e7df34fec035211"),
 }
 
 if not GATE_CONFIGURATION["key"] or not GATE_CONFIGURATION["secret"]:
