@@ -6,8 +6,8 @@ from ..spot import Spot
 from ..wallet import Wallet
 
 __all__ = [
-    "instance_spot",
-    "instance_wallet",
+    "spot_instance",
+    "wallet_instance",
 ]
 
 
@@ -27,13 +27,13 @@ api_client = gate_api.ApiClient(gate_api.Configuration(**GATE_CONFIGURATION))
 
 
 @pytest.fixture(autouse=True, scope="class")
-def instance_spot():
+def spot_instance():
     spot = Spot(api_client)
     yield spot
 
 
 @pytest.fixture(autouse=True, scope="class")
-def instance_wallet():
+def wallet_instance():
 
     wallet = Wallet(api_client)
     yield wallet
