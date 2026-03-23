@@ -36,9 +36,9 @@ INFO_COMMANDS = {
 TELEGRAM_BOT = {
     "host": os.environ.get("TELEGRAM_HOST", "https://api.telegram.org"),
     "token": os.environ.get(
-        "TELEGRAM_BOT_TOKEN", "7228013034:AAGq5gsii2VYm-YmmYjTscuga65wQ8Hp-I4"
+        "TELEGRAM_BOT_TOKEN", "7228013034:AAGq5gsii2"
     ),
-    "chat_id": int(os.environ.get("TELEGRAM_CHAT_ID", "5800014160")),
+    "chat_id": int(os.environ.get("TELEGRAM_CHAT_ID", "58000")),
     "connect_timeout": int(os.environ.get("TELEGRAM_CONN_TIME", 60))
 }
 
@@ -46,12 +46,10 @@ bot = async_telebot.AsyncTeleBot(TELEGRAM_BOT["token"])
 
 GATE_CONFIGURATION = {
     "host": os.environ.get("GATE_HOST", "https://api.gateio.ws/api/v4"),
-    # "8150bdc658836c1cb07e4b5380f564e3"
     "key": os.environ.get("GATE_KEY", "2c4ffa1c8b3f6a935b978e8a47a67e5f"),
-    # "75c3b0e31e1fdeee53d8b27eefbc22174d99a0854832fa6f5f7b3633c204d22b"
     "secret": os.environ.get(
         "GATE_SECRET",
-        "ffa60f500082d0151e7df34fec035211033ea2c3dc423786b75f07603b85e9ab",
+        "ffa60f500082d0151e7df34fec0352110",
     ),
 }
 

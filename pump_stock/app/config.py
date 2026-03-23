@@ -33,16 +33,6 @@ BOT_NAME = os.environ.get("BOT_FILE_NAME", "pump_stock")
 
 LOG_FILE_NAME = f"{CONTAINER_ID}_{BOT_NAME}"
 
-# DB_CONFIGURATION = {
-#     "driver": os.environ.get("DB_DRIVER", "postgresql"),
-#     "username": os.environ.get("DB_USERNAME", "gate_io"),
-#     "password": os.environ.get("DB_PASSWORD", "A510B467E9DBE5E8AD"),
-#     "host": os.environ.get("DB_HOST", "192.168.0.110"),
-#     "port": int(os.environ.get("DB_PORT", 5432)),
-#     "service_name": os.environ.get("DB_SERVICE_NAME", "gate_io"),
-#     "async_req": True,
-# }
-
 DB_CONFIGURATION = {
     "file_path": os.environ.get(
         "DB_FILE_PATH", os.path.join("app/database", "database.db")
@@ -59,9 +49,7 @@ GATE_API_DOMAIN = f"{LOCAL_GATE_API_IP}:{LOCAL_GATE_API_PORT}"
 
 GATE_CONFIGURATION = {
     "host": os.environ.get("GATE_HOST", "https://api.gateio.ws/api/v4"),
-    # "8150bdc658836c1cb07e4b5380f564e3"
     "key": os.environ.get("GATE_KEY", "3b4a04ccc3ce615e"),
-    # "75c3b0e31e1fdeee53d8b27eefbc22174d99a0854832fa6f5f7b3633c204d22b"
     "secret": os.environ.get(
         "GATE_SECRET",
         "13b45a963480cdc446579e8405ea6",
