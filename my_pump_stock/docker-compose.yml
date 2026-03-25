@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
       - "gate_io_log:/usr/src/app/log:rw"
+      - "gate_io_data:/usr/src/app/data:rw"
     restart: always
     hostname: ${CONTAINER_NAME:-None}
     environment:
@@ -17,8 +18,6 @@ services:
         required: True
       - path: ./env/${BRANCH}/telegram.env
         required: True
-      - path: ./env/${BRANCH}/database.env
-        required: True
     networks:
       - gate_io
     # security_opt:
@@ -28,8 +27,8 @@ services:
     #     ipv4_address: 172.18.0.4
 
 volumes:
-  # gate_io_data:
-  #   external: True
+  gate_io_data:
+    external: True
   gate_io_log:
     external: True
   

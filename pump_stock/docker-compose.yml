@@ -4,7 +4,7 @@ services:
     image: ${CONTAINER_NAME:-None}:${BRANCH}-${TAG}-${COMMIT_SHORT_SHA}
     build: .
     volumes:
-      # - "gate_io_data:/usr/src/app/data:rw"
+      - "gate_io_data:/usr/src/app/data:rw"
       # - "./app/data/img:/usr/src/app/data/img:rw"
       - "gate_io_log:/usr/src/app/log:rw"
     restart: always
@@ -19,8 +19,6 @@ services:
         required: True
       - path: ./env/${BRANCH}/telegram.env
         required: True
-      - path: ./env/${BRANCH}/database.env
-        required: True
     networks:
       - production
     security_opt:
@@ -29,8 +27,8 @@ services:
       - SYS_PTRACE
 
 volumes:
-  # gate_io_data:
-  #   external: True
+  gate_io_data:
+    external: True
   gate_io_log:
     external: True
 

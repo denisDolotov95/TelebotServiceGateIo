@@ -16,7 +16,7 @@ LOG_FILE_NAME = f"{CONTAINER_ID}_{BOT_NAME}"
 
 GATE_DOMAIN = 'https://www.gate.io'
 
-BROWSER_DOMAIN =  os.environ.get("BROWSER_DOMAIN", 'http://192.168.0.110:4444/wd/hub')
+BROWSER_DOMAIN =  os.environ.get("BROWSER_DOMAIN", 'http://:4444/wd/hub')
 
 LOCAL_GATE_API_IP= os.environ.get("LOCAL_GATE_REST_API_IP", "192.168.0.103")
 LOCAL_GATE_API_PORT= os.environ.get("LOCAL_GATE_REST_API_PORT", "3501")

@@ -1,4 +1,23 @@
 services:
+  firefox:
+      image: selenium/standalone-firefox:latest
+      container_name: ${CONTAINER_ID:-0}_firefox
+      hostname: firefox
+      privileged: true
+      shm_size: 2g
+      ports:
+        - "4444:4444"  # Selenium WebDriver API
+        - "7900:7900"  # VNC Viewer
+      environment:
+        - SE_NODE_MAX_SESSIONS=3
+        - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+        - SE_NODE_SESSION_TIMEOUT=300
+        - SE_NODE_GRID_URL=http://localhost:4444
+        - SE_NODE_DETECT_DRIVERS=false
+      networks:
+        gate_io:
+          ipv4_address: ${FIREFOX_HOST}
+
   gate_io_my_account:
     container_name: ${CONTAINER_ID:-0}_${CONTAINER_NAME:-None}
     image: ${CONTAINER_NAME:-None}:${BRANCH}-${TAG}-${COMMIT_SHORT_SHA}
@@ -18,10 +37,10 @@ services:
         required: True
       - path: ./env/${BRANCH}/telegram.env
         required: True
-      - path: ./env/${BRANCH}/database.env
-        required: True
     networks:
       - gate_io
+    depends_on: 
+      - firefox
 
 volumes:
   gate_io_log:

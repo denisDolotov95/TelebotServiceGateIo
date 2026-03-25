@@ -18,8 +18,10 @@ services:
       - GATE_SECRET=${GATE_SECRET}
     ports:
       - ${FASTAPI_PORT}:${FASTAPI_PORT}
+    # expose:
+    #   - ${FASTAPI_PORT}
     networks:
-      gate_api:
+      gate_io:
         ipv4_address: ${FASTAPI_HOST}
 
   redis:
@@ -36,7 +38,7 @@ services:
       - REDIS_PORT=${REDIS_PORT}
       - REDIS_DATABASES=16
     networks:
-      gate_api:
+      gate_io:
         ipv4_address: ${REDIS_HOST}
 
 volumes:
