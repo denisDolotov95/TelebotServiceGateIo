@@ -1,0 +1,1451 @@
+openapi: 3.1.0
+info:
+  title: Gate.io REST API
+  description: >-
+    Взаимодействие с gate.io <a
+    href='https://www.gate.io/docs/developers/apiv4/'>API</a>
+  contact:
+    name: Denis D.
+    email: gambit0095.mail@gmail.com
+  version: 0.0.1
+paths:
+  /spot/currency_pair:
+    post:
+      tags:
+        - Spot
+      summary: Currency Pair
+      operationId: currency_pair_spot_currency_pair_post
+      parameters:
+        - name: currency_pair
+          in: query
+          required: true
+          schema:
+            type: string
+            title: Currency Pair
+          example: BTC_USDT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payload'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: '#/components/schemas/CurrencyPair'
+                  - type: 'null'
+                title: Response Currency Pair Spot Currency Pair Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/cancel_orders:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: Cancel Orders
+  #     operationId: cancel_orders_spot_cancel_orders_post
+  #     parameters:
+  #       - name: currency_pair
+  #         in: query
+  #         required: true
+  #         schema:
+  #           type: string
+  #           title: Currency Pair
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Security'
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - type: array
+  #                   items:
+  #                     $ref: '#/components/schemas/Order'
+  #                 - type: 'null'
+  #               title: Response Cancel Orders Spot Cancel Orders Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/orders:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: Orders
+  #     operationId: orders_spot_orders_post
+  #     parameters:
+  #       - name: currency_pair
+  #         in: query
+  #         required: true
+  #         schema:
+  #           type: string
+  #           title: Currency Pair
+  #       - name: status
+  #         in: query
+  #         required: true
+  #         schema:
+  #           enum:
+  #             - open
+  #             - finished
+  #           type: string
+  #           title: Status
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Security'
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - type: array
+  #                   items:
+  #                     $ref: '#/components/schemas/Order'
+  #                 - type: 'null'
+  #               title: Response Orders Spot Orders Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/currency_pairs:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: Currency Pairs
+  #     operationId: currency_pairs_spot_currency_pairs_post
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Security'
+  #       required: true
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - items:
+  #                     $ref: '#/components/schemas/CurrencyPair'
+  #                   type: array
+  #                 - type: 'null'
+  #               title: Response Currency Pairs Spot Currency Pairs Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/spot_accounts:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: Spot Accounts
+  #     operationId: spot_accounts_spot_spot_accounts_post
+  #     parameters:
+  #       - name: currency
+  #         in: query
+  #         required: false
+  #         schema:
+  #           type: string
+  #           title: Currency
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Security'
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - type: array
+  #                   items:
+  #                     $ref: '#/components/schemas/Account'
+  #                 - type: 'null'
+  #               title: Response Spot Accounts Spot Spot Accounts Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/spot_account_book:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: Spot Account Book
+  #     operationId: spot_account_book_spot_spot_account_book_post
+  #     parameters:
+  #       - name: currency
+  #         in: query
+  #         required: false
+  #         schema:
+  #           type: string
+  #           title: Currency
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Security'
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - type: array
+  #                   items:
+  #                     $ref: '#/components/schemas/AccountBook'
+  #                 - type: 'null'
+  #               title: Response Spot Account Book Spot Spot Account Book Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/trades:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: Trades
+  #     operationId: trades_spot_trades_post
+  #     parameters:
+  #       - name: currency_pair
+  #         in: query
+  #         required: true
+  #         schema:
+  #           type: string
+  #           title: Currency Pair
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Security'
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - type: array
+  #                   items:
+  #                     $ref: '#/components/schemas/Trade'
+  #                 - type: 'null'
+  #               title: Response Trades Spot Trades Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/tickers:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: Tickers
+  #     operationId: tickers_spot_tickers_post
+  #     parameters:
+  #       - name: currency_pair
+  #         in: query
+  #         required: true
+  #         schema:
+  #           type: string
+  #           title: Currency Pair
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Security'
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - type: array
+  #                   items:
+  #                     $ref: '#/components/schemas/Ticker'
+  #                 - type: 'null'
+  #               title: Response Tickers Spot Tickers Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/order_book:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: Order Book
+  #     operationId: order_book_spot_order_book_post
+  #     parameters:
+  #       - name: currency_pair
+  #         in: query
+  #         required: true
+  #         schema:
+  #           type: string
+  #           title: Currency Pair
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Payload'
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - $ref: '#/components/schemas/OrderBook'
+  #                 - type: 'null'
+  #               title: Response Order Book Spot Order Book Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/all_open_orders:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: All Open Orders
+  #     operationId: all_open_orders_spot_all_open_orders_post
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Security'
+  #       required: true
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - items:
+  #                     $ref: '#/components/schemas/OpenOrders'
+  #                   type: array
+  #                 - type: 'null'
+  #               title: Response All Open Orders Spot All Open Orders Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /spot/candlesticks:
+  #   post:
+  #     tags:
+  #       - Spot
+  #     summary: Candlesticks
+  #     operationId: candlesticks_spot_candlesticks_post
+  #     parameters:
+  #       - name: currency_pair
+  #         in: query
+  #         required: true
+  #         schema:
+  #           type: string
+  #           title: Currency Pair
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Payload'
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               anyOf:
+  #                 - type: array
+  #                   items:
+  #                     $ref: '#/components/schemas/Candlestick'
+  #                 - type: 'null'
+  #               title: Response Candlesticks Spot Candlesticks Post
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /wallet/total_balance:
+  #   post:
+  #     tags:
+  #       - Wallet
+  #     summary: Total Balance
+  #     operationId: total_balance_wallet_total_balance_post
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Security'
+  #       required: true
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/TotalBalance'
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+  # /admin/{item_id}:
+  #   get:
+  #     tags:
+  #       - Admin
+  #     summary: Client Info
+  #     operationId: client_info_admin__item_id__get
+  #     parameters:
+  #       - name: item_id
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: string
+  #           title: Item Id
+  #     responses:
+  #       '200':
+  #         description: Successful Response
+  #         content:
+  #           application/json:
+  #             schema: {}
+  #       '422':
+  #         description: Validation Error
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Account:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        available:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Available
+        locked:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Locked
+        update_id:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Update Id
+      type: object
+      title: Account
+    AccountBook:
+      properties:
+        id:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Id
+        time:
+          type: integer
+          title: Time
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        change:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Change
+        balance:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Balance
+        type:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Type
+        text:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Text
+      type: object
+      title: AccountBook
+    Ask:
+      properties:
+        price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Price
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+      type: object
+      title: Ask
+    Bid:
+      properties:
+        price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Price
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+      type: object
+      title: Bid
+    Candlestick:
+      properties:
+        unix_timestamp:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Unix Timestamp
+        trade_volume_in_quote:
+          type: number
+          title: Trade Volume In Quote
+        close_price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Close Price
+        highest_price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Highest Price
+        lowest_price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Lowest Price
+        open_price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Open Price
+        trade_volume_in_base:
+          type: number
+          title: Trade Volume In Base
+        window_is_closed:
+          type: boolean
+          title: Window Is Closed
+      type: object
+      title: Candlestick
+      description: >-
+        K-line data for each time granularity, arranged from left to right:
+
+        - Unix timestamp with second precision
+
+        - Trading volume in quote currency
+
+        - Closing price
+
+        - Highest price
+
+        - Lowest price
+
+        - Opening price
+
+        - Trading volume in base currency
+
+        - Whether the window is closed; true indicates the end of this segment
+        of candlestick chart data, false indicates that this segment of
+        candlestick chart data is not yet complete
+                Args:
+                    BaseModel (_type_): _description_
+    Cbbc:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+      type: object
+      title: Cbbc
+    Connect:
+      properties:
+        read_timeout:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Read Timeout
+          default: 30
+        timeout:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Timeout
+          default: 5
+      type: object
+      title: Connect
+    CrossMargin:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+      type: object
+      title: CrossMargin
+    CurrencyPair:
+      properties:
+        id:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Id
+        base:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Base
+        quote:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Quote
+        fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Fee
+        min_base_amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Min Base Amount
+        min_quote_amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Min Quote Amount
+        max_base_amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Max Base Amount
+        max_quote_amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Max Quote Amount
+        amount_precision:
+          type: integer
+          title: Amount Precision
+        precision:
+          type: integer
+          title: Precision
+        trade_status:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Trade Status
+        sell_start:
+          type: integer
+          title: Sell Start
+        buy_start:
+          type: integer
+          title: Buy Start
+      type: object
+      title: CurrencyPair
+    Data:
+      properties:
+        limit:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Limit
+          default: 1
+        interval:
+          enum:
+            - 10s
+            - 1m
+            - 5m
+            - 15m
+            - 30m
+            - 1h
+            - 4h
+            - 8h
+            - 1d
+            - 7d
+            - 30d
+            - null
+          title: Interval
+      type: object
+      title: Data
+    Delivery:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+        unrealised_pnl:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Unrealised Pnl
+      type: object
+      title: Delivery
+    Details:
+      properties:
+        cross_margin:
+          $ref: '#/components/schemas/CrossMargin'
+        spot:
+          $ref: '#/components/schemas/Spot'
+        finance:
+          $ref: '#/components/schemas/Finance'
+        margin:
+          $ref: '#/components/schemas/Margin'
+        quant:
+          $ref: '#/components/schemas/Quant'
+        futures:
+          $ref: '#/components/schemas/Futures'
+        delivery:
+          $ref: '#/components/schemas/Delivery'
+        warrant:
+          $ref: '#/components/schemas/Warrant'
+        cbbc:
+          $ref: '#/components/schemas/Cbbc'
+      type: object
+      title: Details
+    Finance:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+      type: object
+      title: Finance
+    Futures:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+        unrealised_pnl:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Unrealised Pnl
+      type: object
+      title: Futures
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Margin:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+        borrowed:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Borrowed
+      type: object
+      title: Margin
+    OpenOrders:
+      properties:
+        currency_pair:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency Pair
+        total:
+          anyOf:
+            - type: string
+            - type: integer
+            - type: 'null'
+          title: Total
+        orders:
+          items:
+            $ref: '#/components/schemas/ShortOrder'
+          type: array
+          title: Orders
+      type: object
+      title: OpenOrders
+    Order:
+      properties:
+        id:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Id
+        text:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Text
+        create_time:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Create Time
+        update_time:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Update Time
+        currency_pair:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency Pair
+        status:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Status
+        type:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Type
+        account:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Account
+        side:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Side
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+        price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Price
+        time_in_force:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Time In Force
+        left:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Left
+        filled_total:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Filled Total
+        fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Fee
+        fee_currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Fee Currency
+        point_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Point Fee
+        gt_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Gt Fee
+        gt_discount:
+          type: boolean
+          title: Gt Discount
+        rebated_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Rebated Fee
+        rebated_fee_currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Rebated Fee Currency
+        amend_text:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amend Text
+        create_time_ms:
+          type: integer
+          title: Create Time Ms
+        update_time_ms:
+          type: integer
+          title: Update Time Ms
+        iceberg:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Iceberg
+        filled_amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Filled Amount
+        fill_price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Fill Price
+        avg_deal_price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Avg Deal Price
+        gt_maker_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Gt Maker Fee
+        gt_taker_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Gt Taker Fee
+        finish_as:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Finish As
+      type: object
+      title: Order
+    OrderBook:
+      properties:
+        id:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Id
+        current:
+          type: integer
+          title: Current
+        update:
+          type: integer
+          title: Update
+        asks:
+          items:
+            $ref: '#/components/schemas/Ask'
+          type: array
+          title: Asks
+        bids:
+          items:
+            $ref: '#/components/schemas/Bid'
+          type: array
+          title: Bids
+      type: object
+      title: OrderBook
+    Payload:
+      properties:
+        data:
+          $ref: '#/components/schemas/Data'
+        security:
+          anyOf:
+            - $ref: '#/components/schemas/Security'
+            - type: 'null'
+        connect:
+          anyOf:
+            - $ref: '#/components/schemas/Connect'
+            - type: 'null'
+      type: object
+      title: Payload
+    Quant:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+      type: object
+      title: Quant
+    Security:
+      properties:
+        key:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Key
+          example: ''
+        proxy:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Proxy
+          example: ''
+        secret:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Secret
+          example: ''
+      type: object
+      title: Security
+    ShortOrder:
+      properties:
+        id:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Id
+        text:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Text
+        create_time:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Create Time
+        update_time:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Update Time
+        currency_pair:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency Pair
+        status:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Status
+        type:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Type
+        account:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Account
+        side:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Side
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+        price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Price
+        time_in_force:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Time In Force
+        left:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Left
+        filled_total:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Filled Total
+        fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Fee
+        fee_currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Fee Currency
+        point_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Point Fee
+        gt_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Gt Fee
+        gt_discount:
+          type: boolean
+          title: Gt Discount
+        rebated_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Rebated Fee
+        rebated_fee_currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Rebated Fee Currency
+      type: object
+      title: ShortOrder
+    Spot:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+      type: object
+      title: Spot
+    Ticker:
+      properties:
+        currency_pair:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency Pair
+        last:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Last
+        lowest_ask:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Lowest Ask
+        highest_bid:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Highest Bid
+        change_percentage:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Change Percentage
+        change_utc0:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Change Utc0
+        change_utc8:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Change Utc8
+        base_volume:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Base Volume
+        quote_volume:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Quote Volume
+        high_24h:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: High 24H
+        low_24h:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Low 24H
+        etf_net_value:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Etf Net Value
+        etf_pre_net_value:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Etf Pre Net Value
+        etf_pre_timestamp:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Etf Pre Timestamp
+        etf_leverage:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Etf Leverage
+      type: object
+      title: Ticker
+    Total:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+        unrealised_pnl:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Unrealised Pnl
+        borrowed:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Borrowed
+      type: object
+      title: Total
+    TotalBalance:
+      properties:
+        details:
+          $ref: '#/components/schemas/Details'
+        total:
+          $ref: '#/components/schemas/Total'
+      type: object
+      required:
+        - details
+        - total
+      title: TotalBalance
+    Trade:
+      properties:
+        id:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Id
+        create_time:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Create Time
+        create_time_ms:
+          anyOf:
+            - type: number
+            - type: 'null'
+          title: Create Time Ms
+        order_id:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Order Id
+        side:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Side
+        role:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Role
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+        price:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Price
+        fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Fee
+        fee_currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Fee Currency
+        point_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Point Fee
+        gt_fee:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Gt Fee
+        sequence_id:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Sequence Id
+        text:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Text
+      type: object
+      title: Trade
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
+    Warrant:
+      properties:
+        currency:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Currency
+        amount:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Amount
+      type: object
+      title: Warrant
+tags:
+  - name: Spot
+    description: Operations with spot
+    externalDocs:
+      description: Items external docs
+      url: https://fastapi.tiangolo.com/
+  - name: Admin
+    description: Admin info
+    externalDocs:
+      description: Items external docs
+      url: https://fastapi.tiangolo.com/
+  - name: Wallet
+    description: Operations with wallet
+    externalDocs:
+      description: Items external docs
+      url: https://fastapi.tiangolo.com/
